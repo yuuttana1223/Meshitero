@@ -8,10 +8,12 @@ class ApplicationController < ActionController::Base
     post_images_path
   end
 
+# private内に記述されているメソッドはクラス外から呼び出すことができない
+# protected内のメソッドは呼び出すことができる
+# protected内にメソッドを記述することで、思わぬところからメソッドが呼び出されることを防ぐ。
   protected
-
-  def configure_permitted_parameters
-  # ユーザ登録（sign_up）の際に、ユーザ名（name）のデータ操作が許可
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
-  end
+    def configure_permitted_parameters
+    # ユーザ登録（sign_up）の際に、ユーザ名（name）のデータ操作が許可
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+    end
 end
