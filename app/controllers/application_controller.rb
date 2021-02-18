@@ -3,6 +3,11 @@ class ApplicationController < ActionController::Base
   # その前にconfigure_permitted_parametersが実行
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+ # ログイン後のリダイレクト先
+  def after_sign_in_path_for(resource)
+    post_images_path
+  end
+
   protected
 
   def configure_permitted_parameters
