@@ -1,0 +1,23 @@
+<div class="profile-container">
+  <h3 class="profile-name"><%= @user.name %></h3>
+  <!--attachment_image_tag 保存先インスタンス名, :保存先カラム名, :サイズ（横幅,高さ）, 画像拡張子, 代替画像-->
+  <!--fallback: 画像データがカラムにない場合、代わりに表示する画像-->
+  <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
+  <% if @user == current_user %>
+    <p><%= link_to "プロフィール編集", edit_user_path(@user) %></p>
+  <% end %>
+
+</div>
+
+<% @post_images.each do |post_image| %>
+<div>
+  <%= link_to post_image_path(post_image.id) do %>
+    <%= attachment_image_tag post_image, :image %>
+  <% end %>
+  <p>投稿ユーザー画像：<%= image_tag('sample-author1.jpg') %></p>
+  <p>ショップ名：<%= post_image.shop_name %></p>
+  <p>説明：<%= post_image.caption %></p>
+  <p>ユーザーネーム：<%= post_image.user.name %></p>
+</div>
+<% end %>
+<%= paginate @post_images %>
